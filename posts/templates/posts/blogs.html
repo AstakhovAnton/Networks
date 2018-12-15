@@ -1,0 +1,54 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+    <div>
+        <form method="get" action="/blogs/" class="form-inline">
+            {% for field in sortform %}
+                {% if field.label == 'Category' %}
+                    <label>{{ field.label }}</label>
+                    {{ field|add_class:"chosen-container" }}
+                {% else %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <input type="submit" class="btn btn-sm btn-success" value="Submit">
+        </form>
+    </div>
+
+    <div>
+        <h3 style="text-align: right;">
+            <a href="{% url 'posts:createblog' %}">
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" id="myModal">
+                    <span class="glyphicon glyphicon-plus"></span> Create new blog
+                </button>
+            </a>
+        </h3>
+        <h1 style="display: inline-block;">
+            Blogs
+        </h1>
+
+        <div class="row" style="width: 100%;">
+            {% for blog in object_list %}
+                <div class="jumbotron">
+                    <h2>
+                        <a href="{% url 'posts:blog' pk=blog.id %}">
+                            {{blog.title}}
+                        </a>
+                    </h2>
+                    <div>
+                        <h3>{{blog.description}}</h3>
+                    </div>
+                    <a class="btn btn-lg btn-default" href="{% url 'posts:editblog' pk=blog.id %}"> Edit blog </a>
+                    <a class="btn btn-lg btn-default" href="{% url 'posts:deleteblog' pk=blog.id %}"> Delete blog </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <a href="{% url 'posts:allblogsmini' %}">Версия для слабого интернета</a>
+{% endblock %}
