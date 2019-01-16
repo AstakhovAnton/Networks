@@ -87,8 +87,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'TRACK_BASE',
-        'USER': 'fedor',
-        'PASSWORD': 'ubuntu14',
+        'USER': 'root',
+        'PASSWORD': '123',
         'HOST': 'localhost',
     }
 }
